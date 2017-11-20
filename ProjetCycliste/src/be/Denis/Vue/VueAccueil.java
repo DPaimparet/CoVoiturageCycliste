@@ -10,11 +10,12 @@ import javax.swing.JPasswordField;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+
+import be.Denis.Model.*;
 
 public class VueAccueil {
 
@@ -145,10 +146,10 @@ public class VueAccueil {
 			btnConnexion.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent ev){	
 				if(textUserName != null && password != null){
-					//Client c = new Client(login.getText(),pass.getText());
+					Membre m = new Membre(textUserName.getText(),password.getText());
 					try {
-						if(){
-							//screenLogin.dispose();
+						if(m.connexion()){
+							ecranAccueil.dispose();
 						}else {
 							lblErreur.setText("login ou mot de passe incorrect");
 						}
