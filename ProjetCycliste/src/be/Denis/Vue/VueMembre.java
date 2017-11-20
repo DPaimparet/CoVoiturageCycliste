@@ -3,6 +3,8 @@ package be.Denis.Vue;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import be.Denis.Model.Membre;
+import be.Denis.Model.Personne;
+
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;

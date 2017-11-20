@@ -35,7 +35,7 @@ public class VueAccueil {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void init() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -53,9 +53,57 @@ public class VueAccueil {
 	 */
 	public VueAccueil() {
 		initialize();
-		connexion();
+		eventHandler();
 	}
+	/***
+	 * Event sur les boutons
+	 */
 	
+	private void eventHandler() {
+		/***
+		 * Connexion
+		 */
+		
+		btnConnexion.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent ev){	
+				if(textUserName != null && password != null){
+					@SuppressWarnings("deprecation")
+					Membre m = new Membre(textUserName.getText(),password.getText());
+					try {
+						if(m.connexion()){
+							ecranAccueil.dispose();
+						}else {
+							lblErreur.setText("login ou mot de passe incorrect");
+						}
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+			}	
+		});
+			
+		/***
+		 * Remettre les champs de connexion à vide
+		 */
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textUserName.setText(null);
+				password.setText(null);
+			}
+		});
+		/***
+		 * Quitter l'application
+		 */
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ecranAccueil = new JFrame("Quitter");
+				if(JOptionPane.showConfirmDialog(ecranAccueil, "Voulez-vous quitter?","Le programme",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION)
+					System.exit(0);
+			}
+		});
+	}
 	/**
 	 * Initialisation de ma vue
 	 */
@@ -136,51 +184,5 @@ public class VueAccueil {
 		lblErreur.setForeground(Color.RED);
 		lblErreur.setBounds(330, 75, 144, 44);
 		ecranAccueil.getContentPane().add(lblErreur);
-	}
-		
-		/***
-		 * Connexion
-		 */
-		
-		private void connexion() {
-			btnConnexion.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent ev){	
-				if(textUserName != null && password != null){
-					Membre m = new Membre(textUserName.getText(),password.getText());
-					try {
-						if(m.connexion()){
-							ecranAccueil.dispose();
-						}else {
-							lblErreur.setText("login ou mot de passe incorrect");
-						}
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
-				}
-					
-			}	
-		});
-			
-		/***
-		 * Remettre les champs de connexion à vide
-		 */
-		btnReset.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				textUserName.setText(null);
-				password.setText(null);
-			}
-		});
-		/***
-		 * Quitter l'application
-		 */
-		btnClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ecranAccueil = new JFrame("Quitter");
-				if(JOptionPane.showConfirmDialog(ecranAccueil, "Voulez-vous quitter?","Le programme",JOptionPane.YES_NO_OPTION)== JOptionPane.YES_NO_OPTION)
-					System.exit(0);
-			}
-		});
 	}
 }
