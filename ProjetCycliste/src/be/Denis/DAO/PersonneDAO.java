@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 import be.Denis.Model.Personne;
@@ -15,12 +16,13 @@ public class PersonneDAO extends DAO<Personne>{
 	}
 	
 	/***
-	 * Recherche de la personne à la création
+	 * Recherche de la personne à la connexion
 	 */
 		public Personne find(String login, String pass){
 			Personne personne = null;
 			try {
-				PreparedStatement prepare = connect.prepareStatement("SELECT * FROM Membre WHERE nomMembre = ? AND password = ?");
+				String membre = "SELECT * FROM Membre WHERE login = ? AND password = ?";
+				PreparedStatement prepare = connect.prepareStatement(membre);
 				prepare.setString (1, login);
 				prepare.setString (2, pass);
 				ResultSet resultat = prepare.executeQuery();
@@ -40,21 +42,18 @@ public class PersonneDAO extends DAO<Personne>{
 	@Override
 	public boolean create(Personne obj) {
 		try{
-			PreparedStatement prepare = connect.prepareStatement("INSERT INTO Membre VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			String creerMembre = "INSERT INTO Membre"
+					+ "(nomMembre, prenomMembre, sexe, login, password, fonction, dateInscription ) "
+					+ "VALUES"+ "(?,?,?,?,?,?,?)";
+			Date jour = (Date) GregorianCalendar.getInstance().getTime();
+			PreparedStatement prepare = connect.prepareStatement(creerMembre);
 		    prepare.setString (1, obj.getNom());
 		    prepare.setString (2, obj.getPrenom());
-		    prepare.setDate (3, obj.getDate());
-		    prepare.setString(4, obj.getSexe());
-		    prepare.setString(5, obj.getCategorie());
-		    prepare.setString(6, obj.getAdresse());
-		    prepare.setInt(7, obj.getNumeroMaison());
-		    prepare.setInt(8, obj.getCodePostal());
-		    prepare.setString(9, obj.getVille());
-		    prepare.setLong(10, obj.getNumTel());
-		    prepare.setString(11, obj.geteMail());
-		    prepare.setString(12, obj.getLogin());
-		    prepare.setString(13, obj.getPassword());
-		    prepare.setString(14, obj.getFonction());
+		    prepare.setString(3, obj.getSexe());
+		    prepare.setString(4, obj.getLogin());
+		    prepare.setString(5, obj.getPassword());
+		    prepare.setString(6, obj.getFonction());
+		    prepare.setDate(7, jour );
 		    prepare.executeUpdate();
 		}
 		catch(SQLException e){

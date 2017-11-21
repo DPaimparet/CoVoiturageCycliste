@@ -42,6 +42,16 @@ public class Personne {
 		this.fonction = fonction;
 	}
 	
+	public Personne (String nom, String prenom,String sexe,String login,String password,String fonction) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.sexe = sexe;
+		this.login = login;
+		this.password = password;
+		this.fonction = fonction;
+		this.dateInscr = dateInscr;
+	}
+	
 	public Personne(String login, String password){
 		this.login= login;
 		this.password=password;	
@@ -201,7 +211,7 @@ public class Personne {
 		{
 			// si membre categorie = responsable appel vue responsable
 			if(p.fonction.equals("Responsable")) {
-				Responsable r = new Responsable(p.nom,p.prenom,p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				Responsable r = new Responsable(p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
 				VueResponsable.init(r);
 				return true;
 			}
@@ -211,7 +221,7 @@ public class Personne {
 			}
 			// sinon appel vue membre
 			else {
-				Membre m = new Membre(p.nom,p.prenom,p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				Membre m = new Membre(p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
 				VueMembre.init(m);		
 				return true;
 			}
