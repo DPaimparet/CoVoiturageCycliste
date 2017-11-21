@@ -66,7 +66,7 @@ public class PersonneDAO extends DAO<Personne>{
 	 * @param login
 	 * @return
 	 */
-	public boolean compteExiste(String login) {
+	public boolean compteExist(String login) {
 		try {
 			String membre = "SELECT login FROM Membre WHERE login = ?";
 			PreparedStatement prepare = connect.prepareStatement(membre);

@@ -86,7 +86,7 @@ public class VueInscription {
 					sexe="F";
 				}
 				
-				if(!textNom.getText().equals("") || !textPrenom.getText().equals("")){
+				if(!textNom.getText().equals("") && !textPrenom.getText().equals("") && !textLogin.getText().equals("") && !textPassword.getText().equals("") ){
 					Personne p = new Personne (nom, prenom, sexe, login, password, fonction);
 					if(!p.exist(login)) {
 						p.inscription();
