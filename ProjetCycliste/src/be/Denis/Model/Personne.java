@@ -237,4 +237,14 @@ public class Personne {
 		DAO<Personne> PersonneDAO = adf.getPersonneDAO();
 		PersonneDAO.create(this);
 	}
+	
+	/***
+	 * Méthode qui permet de vérifier si un compte existe déjà avec ce login
+	 */
+	public boolean exist(String login) {
+		AbstractDAOFactory adf = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+		DAO<Personne> PersonneDAO = adf.getPersonneDAO();
+		boolean e = PersonneDAO.compteExist(login);
+		return e;
+	}
 }

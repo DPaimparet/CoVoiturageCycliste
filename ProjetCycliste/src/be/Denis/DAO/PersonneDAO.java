@@ -5,7 +5,6 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.GregorianCalendar;
 import java.util.LinkedList;
 
 import be.Denis.Model.Personne;
@@ -44,8 +43,7 @@ public class PersonneDAO extends DAO<Personne>{
 		try{
 			String creerMembre = "INSERT INTO Membre"
 					+ "(nomMembre, prenomMembre, sexe, login, password, fonction, dateInscription ) "
-					+ "VALUES"+ "(?,?,?,?,?,?,?)";
-			Date jour = (Date) GregorianCalendar.getInstance().getTime();
+					+ "VALUES"+ "(?,?,?,?,?,?,now())";
 			PreparedStatement prepare = connect.prepareStatement(creerMembre);
 		    prepare.setString (1, obj.getNom());
 		    prepare.setString (2, obj.getPrenom());
@@ -53,7 +51,6 @@ public class PersonneDAO extends DAO<Personne>{
 		    prepare.setString(4, obj.getLogin());
 		    prepare.setString(5, obj.getPassword());
 		    prepare.setString(6, obj.getFonction());
-		    prepare.setDate(7, jour );
 		    prepare.executeUpdate();
 		}
 		catch(SQLException e){
@@ -63,7 +60,28 @@ public class PersonneDAO extends DAO<Personne>{
 		} 
 		return true;
 	}
-
+	
+	/***
+	 * Vérifie si un compte n'existe pas déjà avec ce login
+	 * @param login
+	 * @return
+	 */
+	public boolean compteExiste(String login) {
+		try {
+			String membre = "SELECT login FROM Membre WHERE login = ?";
+			PreparedStatement prepare = connect.prepareStatement(membre);
+			prepare.setString (1, login);
+			ResultSet resultat = prepare.executeQuery();
+			if(resultat.next())
+				return true;
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			System.out.println("Erreur de connection base de données");
+		}
+		return false;
+	}
+	
 	@Override
 	public boolean delete(Personne obj) {
 		// TODO Auto-generated method stub

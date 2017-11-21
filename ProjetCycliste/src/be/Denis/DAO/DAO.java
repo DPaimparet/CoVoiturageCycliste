@@ -26,7 +26,12 @@ public abstract class DAO<T> {
 		return null;
 	}
 	
+	public boolean compteExist(String login) {
+		return false;
+	}
+	
 	public LinkedList<Membre> GetListMon() {
 		return null;
 	}
+
 }
