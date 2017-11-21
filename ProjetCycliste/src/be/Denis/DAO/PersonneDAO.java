@@ -43,18 +43,18 @@ public class PersonneDAO extends DAO<Personne>{
 			PreparedStatement prepare = connect.prepareStatement("INSERT INTO Membre VALUES(NULL,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 		    prepare.setString (1, obj.getNom());
 		    prepare.setString (2, obj.getPrenom());
-		    prepare.setDate (3, (Date) obj.getDate());
+		    prepare.setDate (3, obj.getDate());
 		    prepare.setString(4, obj.getSexe());
 		    prepare.setString(5, obj.getCategorie());
 		    prepare.setString(6, obj.getAdresse());
 		    prepare.setInt(7, obj.getNumeroMaison());
 		    prepare.setInt(8, obj.getCodePostal());
 		    prepare.setString(9, obj.getVille());
-		    prepare.setInt(10, obj.getNumTel());
+		    prepare.setLong(10, obj.getNumTel());
 		    prepare.setString(11, obj.geteMail());
 		    prepare.setString(12, obj.getLogin());
 		    prepare.setString(13, obj.getPassword());
-		    prepare.setString(13, obj.getFonction());
+		    prepare.setString(14, obj.getFonction());
 		    prepare.executeUpdate();
 		}
 		catch(SQLException e){

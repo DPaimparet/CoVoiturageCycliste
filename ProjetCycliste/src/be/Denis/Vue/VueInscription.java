@@ -13,20 +13,27 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JRadioButton;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.awt.event.ActionEvent;
 
+import be.Denis.Model.Personne;
 import be.Denis.Vue.VueAccueil;
 import javax.swing.JComboBox;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.MatteBorder;
+import java.awt.Color;
 
 public class VueInscription {
 
 	private JFrame vueInscription;
 	private JTextField textNom;
 	private JTextField textPrenom;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	private JTextField textDateJour;
+	private JTextField textDateMois;
+	private JTextField textDateAnnee;
 	private JTextField textAdresse;
 	private JTextField textNumRue;
 	private JTextField textCodePostal;
@@ -37,6 +44,11 @@ public class VueInscription {
 	private JTextField textPassword;
 	private JButton btnInscription;
 	private JButton btnAnnuler;
+	private JRadioButton rdbtnSexeM;
+	private JRadioButton rdbtnSexeF;
+	private JComboBox<String> comboBoxCategorie;
+	private JComboBox<String> comboBoxFonction;
+	private JLabel lblError;
 
 	/**
 	 * Launch the application.
@@ -71,7 +83,43 @@ public class VueInscription {
 		 */
 		btnInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//new Personne(textNom.getText(),textPrenom.getText(),)
+				String nom = textNom.getText();
+				String prenom = textPrenom.getText();
+				
+				
+				int jour = Integer.parseInt(textDateJour.getText());
+				int mois = Integer.parseInt(textDateMois.getText());
+				int annee = Integer.parseInt(textDateAnnee.getText());
+				Date date = new Date (annee,mois,jour);
+				String sexe;
+				String categorie = (String) comboBoxCategorie.getSelectedItem();
+				String adresse = textAdresse.getText();
+				int rue = Integer.parseInt(textNumRue.getText());
+				int codePostal = Integer.parseInt(textCodePostal.getText());
+				String ville  = textVille.getText();
+				long numTel = Long.parseLong(textTel.getText());
+				String mail = textMail.getText();
+				String login = textLogin.getText();
+				String password = textPassword.getText();
+				String fonction = (String) comboBoxFonction.getSelectedItem();
+				
+				
+				if(rdbtnSexeM.isSelected()) {
+					sexe="H";
+				}
+				else {
+					sexe="F";
+				}
+				
+				if(!textNom.getText().equals("") || !textPrenom.getText().equals("")){
+					Personne p = new Personne(nom ,prenom , date, sexe, categorie, adresse, rue, codePostal, ville, numTel , mail, login, password, fonction);
+					//Personne p = new Personne("Paimparet","Denis",date,"H","","Rue Borfilet",33,6040,"Jumet",3197580,"Paimparet.Denis@gmail.com","Denis","1234","Membre");
+					p.inscription();
+					vueInscription.dispose();
+					VueAccueil.init();
+				}
+				else
+					lblError.setText("Tous les champs ne sont pas remplis");
 			}
 		});
 		/***
@@ -83,11 +131,22 @@ public class VueInscription {
 				VueAccueil.init();
 			}
 		});
+		
+		rdbtnSexeF.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnSexeM.setSelected(false);
+			}
+		});
+		
+		rdbtnSexeM.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnSexeF.setSelected(false);
+			}
+		});
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings("unchecked")
 	private void initialize() {
 		vueInscription = new JFrame();
 		vueInscription.setBounds(100, 100, 694, 447);
@@ -95,9 +154,7 @@ public class VueInscription {
 		
 		JLabel lblTitre = new JLabel("Inscription");
 		lblTitre.setFont(new Font("Tahoma", Font.BOLD, 16));
-		
 		JSeparator separator = new JSeparator();
-		
 		JLabel lblNom = new JLabel("Nom");
 		
 		textNom = new JTextField();
@@ -110,24 +167,18 @@ public class VueInscription {
 		
 		JLabel lblDateNaiss = new JLabel("Date de Naissance");
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		textDateJour = new JTextField();
+		textDateJour.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("/");
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		textDateMois = new JTextField();
+		textDateMois.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("/");
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		
-		JLabel lblSexe = new JLabel("Sexe");
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("M");
-		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("F");
+		textDateAnnee = new JTextField();
+		textDateAnnee.setColumns(10);
 		
 		JLabel lblAdresse = new JLabel("Adresse");
 		
@@ -176,42 +227,61 @@ public class VueInscription {
 		
 		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
 		
-		JComboBox comboBoxFonction = new JComboBox();
-		comboBoxFonction.setModel(new DefaultComboBoxModel(new String[] {"Membre", "Responsable", "Tresorier"}));
+		comboBoxFonction = new JComboBox<String>();
+		comboBoxFonction.setModel(new DefaultComboBoxModel<String>(new String[] {"Membre", "Responsable", "Tresorier"}));
 		
 		JLabel lblFonction = new JLabel("Fonction dans le club");
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialoste", "Cyclo sur route"}));
+		comboBoxCategorie = new JComboBox<String>();
+		comboBoxCategorie.setModel(new DefaultComboBoxModel<String>(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialoste", "Cyclo sur route"}));
 		
+		lblError = new JLabel("");
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
 		GroupLayout groupLayout = new GroupLayout(vueInscription.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(311)
+							.addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, 663, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel_6)
+							.addGap(18)
+							.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE)
+							.addGap(10)
+							.addComponent(lblNewLabel_7)
+							.addGap(4)
+							.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblCategorie)
+							.addGap(18)
+							.addComponent(comboBoxCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(121)
+							.addComponent(lblFonction)
+							.addGap(58)
+							.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 663, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 663, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(238)
+							.addComponent(btnInscription)
+							.addGap(72)
+							.addComponent(btnAnnuler, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblDateNaiss, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-									.addGap(10)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(13)
-											.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
-									.addGap(10)
-									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
-									.addGap(1)
-									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
-									.addComponent(lblSexe)
-									.addGap(32)
-									.addComponent(rdbtnNewRadioButton)
-									.addGap(18)
-									.addComponent(rdbtnNewRadioButton_1)
-									.addGap(55))
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(lblNom, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 									.addGap(8)
@@ -219,152 +289,158 @@ public class VueInscription {
 									.addGap(46)
 									.addComponent(lblPrenom, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
 									.addGap(10)
-									.addComponent(textPrenom, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(lblAdresse)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(textPrenom, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(2)
+									.addComponent(lblDateNaiss, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+									.addComponent(textDateJour, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(13)
+											.addComponent(textDateMois, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+										.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+									.addGap(10)
+									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
+									.addGap(1)
+									.addComponent(textDateAnnee, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)))
+							.addGap(102)
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblNewLabel_4)
+									.addGap(65)
+									.addComponent(textTel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+									.addGap(10)
+									.addComponent(lblNewLabel_5)
+									.addGap(10)
+									.addComponent(textMail))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblNumeroMaison)
+									.addGap(14)
 									.addComponent(textNumRue, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
 									.addComponent(lblNewLabel_2)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGap(10)
 									.addComponent(textCodePostal, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGap(10)
 									.addComponent(lblNewLabel_3)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textVille, GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-									.addPreferredGap(ComponentPlacement.RELATED))
-								.addComponent(textAdresse, GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE))))
-					.addGap(10))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNumeroMaison)
-					.addContainerGap(631, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_4)
-						.addComponent(lblNewLabel_6))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addComponent(textTel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textLogin, 159, 159, 159))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_5)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(textMail, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblNewLabel_7)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(238)
-					.addComponent(btnInscription)
-					.addGap(72)
-					.addComponent(btnAnnuler, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(199, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
-					.addContainerGap())
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(306, Short.MAX_VALUE)
-					.addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-					.addGap(276))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblCategorie)
-					.addGap(18)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
-					.addComponent(lblFonction)
-					.addGap(58)
-					.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
-					.addGap(116))
+									.addComponent(textVille))
+								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addComponent(lblAdresse)
+									.addGap(10)
+									.addComponent(textAdresse, GroupLayout.PREFERRED_SIZE, 509, GroupLayout.PREFERRED_SIZE)))))
+					.addContainerGap(5, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
+					.addGap(11)
 					.addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 					.addGap(12)
 					.addComponent(separator, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNom))
-						.addComponent(textNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblNom))
+								.addComponent(textNom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblPrenom))
+								.addComponent(textPrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(5)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblDateNaiss))
+								.addComponent(textDateJour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textDateMois, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblNewLabel))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(3)
+									.addComponent(lblNewLabel_1))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(1)
+									.addComponent(textDateAnnee, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblPrenom))
-						.addComponent(textPrenom, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(5)
+							.addGap(9)
+							.addComponent(lblAdresse))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textAdresse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(3)
-							.addComponent(lblDateNaiss))
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNewLabel))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblNewLabel_1))
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblSexe)
-							.addComponent(rdbtnNewRadioButton)
-							.addComponent(rdbtnNewRadioButton_1)))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAdresse)
-						.addComponent(textAdresse, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNumeroMaison)
+							.addComponent(lblNumeroMaison))
 						.addComponent(textNumRue, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_2)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_2))
 						.addComponent(textCodePostal, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_3)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_3))
 						.addComponent(textVille, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_4)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_4))
 						.addComponent(textTel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_5)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_5))
 						.addComponent(textMail, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_6)
-						.addComponent(lblNewLabel_7)
-						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_6))
+						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblNewLabel_7))
+						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCategorie)
-						.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFonction)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(68)
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblCategorie))
+						.addComponent(comboBoxCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblFonction))
+						.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+					.addGap(5)
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(26)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(btnInscription)
 						.addComponent(btnAnnuler))
-					.addGap(50))
+					.addGap(44))
 		);
+		
+		JLabel lblSexe = new JLabel("Sexe");
+		panel.add(lblSexe);
+		
+		rdbtnSexeM = new JRadioButton("M");
+		panel.add(rdbtnSexeM);
+		rdbtnSexeM.setSelected(true);
+		rdbtnSexeF = new JRadioButton("F");
+		panel.add(rdbtnSexeF);
 		vueInscription.getContentPane().setLayout(groupLayout);
 	}
 }

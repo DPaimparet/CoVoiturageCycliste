@@ -1,7 +1,7 @@
 package be.Denis.Model;
 
 import java.sql.SQLException;
-import java.util.Date;
+import java.sql.Date;
 import be.Denis.DAO.AbstractDAOFactory;
 import be.Denis.DAO.DAO;
 import be.Denis.Vue.VueMembre;
@@ -18,14 +18,14 @@ public class Personne {
 	private int numeroMaison;
 	private int codePostal;
 	private String ville;
-	private int numTel;
+	private long numTel;
 	private String eMail;
 	private Date dateInscr;
 	private String login;
 	private String password;
 	private String fonction;
 	
-	public Personne(String nom, String prenom, Date dateNaiss, String sexe, String categorie, String adresse,int numeroMaison, int codePostal, String ville, int numTel, String eMail, String login, String password, String fonction){
+	public Personne(String nom, String prenom, Date dateNaiss, String sexe, String categorie, String adresse,int numeroMaison, int codePostal, String ville, long numTel, String eMail, String login, String password, String fonction){
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaiss = dateNaiss;
@@ -137,11 +137,11 @@ public class Personne {
 		this.ville = ville;
 	}
 
-	public int getNumTel() {
+	public long getNumTel() {
 		return numTel;
 	}
 
-	public void setNumTel(int numTel) {
+	public void setNumTel(long numTel) {
 		this.numTel = numTel;
 	}
 

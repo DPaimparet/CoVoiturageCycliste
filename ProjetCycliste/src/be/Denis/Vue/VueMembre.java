@@ -18,6 +18,7 @@ public class VueMembre {
 	private JLabel lblBienvenue;
 	private Membre membre = null;
 	private JButton btnDeconnexion;
+	private JButton btnCompte;
 
 	/**
 	 * Launch the application.
@@ -45,6 +46,18 @@ public class VueMembre {
 	}
 	
 	private void eventHandler() {
+		/***
+		 * Envoie vers la page compte de la personne
+		 */
+		btnCompte.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vueMembre.dispose();
+				//VueCompte
+			}
+		});
+		/***
+		 * Deconnexion , le membre est renvoyé sur la page de connexion
+		 */
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vueMembre.dispose();
@@ -83,7 +96,7 @@ public class VueMembre {
 		btnNextBalade.setBounds(295, 129, 113, 23);
 		vueMembre.getContentPane().add(btnNextBalade);
 		
-		JButton btnCompte = new JButton("Param\u00E8tre");
+		btnCompte = new JButton("Param\u00E8tre");
 		btnCompte.setBounds(295, 160, 113, 23);
 		vueMembre.getContentPane().add(btnCompte);
 		
