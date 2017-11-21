@@ -5,7 +5,8 @@ import java.sql.Date;
 import be.Denis.DAO.AbstractDAOFactory;
 import be.Denis.DAO.DAO;
 import be.Denis.Vue.VueMembre;
-import be.Denis.Vue.VueResponsable;;
+import be.Denis.Vue.VueResponsable;
+import be.Denis.Vue.VueTresorier;;
 
 public class Personne {
 	private int numPersonne;
@@ -25,7 +26,27 @@ public class Personne {
 	private String password;
 	private String fonction;
 	
-	public Personne(String nom, String prenom, Date dateNaiss, String sexe, String categorie, String adresse,int numeroMaison, int codePostal, String ville, long numTel, String eMail, String login, String password, String fonction){
+	
+	/***
+	 * Constructeur servant lors de la création d'une personne lors de la connexion
+	 * @param numPersonne
+	 * @param nom
+	 * @param prenom
+	 * @param dateNaiss
+	 * @param sexe
+	 * @param categorie
+	 * @param adresse
+	 * @param numeroMaison
+	 * @param codePostal
+	 * @param ville
+	 * @param numTel
+	 * @param eMail
+	 * @param login
+	 * @param password
+	 * @param fonction
+	 */
+	public Personne(int numPersonne, String nom, String prenom, Date dateNaiss, String sexe, String categorie, String adresse,int numeroMaison, int codePostal, String ville, long numTel, String eMail, String login, String password, String fonction){
+		this.numPersonne = numPersonne;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateNaiss = dateNaiss;
@@ -41,7 +62,16 @@ public class Personne {
 		this.password = password;
 		this.fonction = fonction;
 	}
-	
+
+	/***
+	 * Constructeur servant à la création d'un compte membre sur la DB
+	 * @param nom
+	 * @param prenom
+	 * @param sexe
+	 * @param login
+	 * @param password
+	 * @param fonction
+	 */
 	public Personne (String nom, String prenom,String sexe,String login,String password,String fonction) {
 		this.nom = nom;
 		this.prenom = prenom;
@@ -49,9 +79,13 @@ public class Personne {
 		this.login = login;
 		this.password = password;
 		this.fonction = fonction;
-		this.dateInscr = dateInscr;
 	}
 	
+	/***
+	 * 
+	 * @param login
+	 * @param password
+	 */
 	public Personne(String login, String password){
 		this.login= login;
 		this.password=password;	
@@ -211,17 +245,19 @@ public class Personne {
 		{
 			// si membre categorie = responsable appel vue responsable
 			if(p.fonction.equals("Responsable")) {
-				Responsable r = new Responsable(p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				Responsable r = new Responsable(p.numPersonne, p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
 				VueResponsable.init(r);
 				return true;
 			}
 			// sinon si categorie = tresorier appel vue tresorier
-			else if(p.fonction.equals("tresorier")) {
+			else if(p.fonction.equals("Tresorier")) {
+				Tresorier t = new Tresorier(p.numPersonne, p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				VueTresorier.init(t);
 				return true;
 			}
 			// sinon appel vue membre
 			else {
-				Membre m = new Membre(p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				Membre m = new Membre(p.numPersonne,p.nom,p.prenom,(java.sql.Date) p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
 				VueMembre.init(m);		
 				return true;
 			}
@@ -246,5 +282,14 @@ public class Personne {
 		DAO<Personne> PersonneDAO = adf.getPersonneDAO();
 		boolean e = PersonneDAO.compteExist(login);
 		return e;
+	}
+	
+	/***
+	 * Méthode update
+	 */
+	public void updateCompte() {
+		AbstractDAOFactory adf = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+		DAO<Personne> PersonneDAO = adf.getPersonneDAO();
+		PersonneDAO.update(this);
 	}
 }

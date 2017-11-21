@@ -26,7 +26,7 @@ public class PersonneDAO extends DAO<Personne>{
 				prepare.setString (2, pass);
 				ResultSet resultat = prepare.executeQuery();
 				if(resultat.next())
-					personne = new Personne(resultat.getString("nomMembre"),resultat.getString("prenomMembre"),resultat.getDate("dateNaissance"),resultat.getString("sexe"),resultat.getString("categorieMembre"),resultat.getString("adresse"),resultat.getInt("numeroMaison"),resultat.getInt("codePostal"),resultat.getString("ville"),resultat.getInt("numTel"),resultat.getString("eMail"),resultat.getString("login"),resultat.getString("password"), resultat.getString("fonction"));
+					personne = new Personne(resultat.getInt("idMembre"),resultat.getString("nomMembre"),resultat.getString("prenomMembre"),resultat.getDate("dateNaissance"),resultat.getString("sexe"),resultat.getString("categorieMembre"),resultat.getString("adresse"),resultat.getInt("numeroMaison"),resultat.getInt("codePostal"),resultat.getString("ville"),resultat.getInt("numTel"),resultat.getString("eMail"),resultat.getString("login"),resultat.getString("password"), resultat.getString("fonction"));
 			}
 			catch(SQLException e){
 				System.out.println(e);
@@ -90,8 +90,34 @@ public class PersonneDAO extends DAO<Personne>{
 
 	@Override
 	public boolean update(Personne obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try{
+			String updateMembre = "UPDATE membre " 
+					+ "SET "
+					+ "nomMembre = ?, prenomMembre = ?,dateNaissance = ?, sexe = ?, categorieMembre = ?, adresse = ?, numeroMaison = ?, codePostal = ?, ville = ?, numTel = ?, eMail = ?, password = ?, fonction = ?"
+					+ " Where idMembre = " + obj.getNumPersonne();
+
+			PreparedStatement prepare = connect.prepareStatement(updateMembre);
+		    prepare.setString (1, obj.getNom());
+		    prepare.setString (2, obj.getPrenom());
+		    prepare.setDate (3, obj.getDate());
+		    prepare.setString(4, obj.getSexe());
+		    prepare.setString(5, obj.getCategorie());
+		    prepare.setString(6, obj.getAdresse());
+		    prepare.setInt(7, obj.getNumeroMaison());
+		    prepare.setInt(8, obj.getCodePostal());
+		    prepare.setString(9, obj.getVille());
+		    prepare.setLong(10, obj.getNumTel());
+		    prepare.setString(11, obj.geteMail());
+		    prepare.setString(12, obj.getPassword());
+		    prepare.setString(13, obj.getFonction());
+		    prepare.executeUpdate();
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			System.out.println("Erreur de connection base de donnees");
+			return false;
+		} 
+		return true;
 	}
 
 	@Override

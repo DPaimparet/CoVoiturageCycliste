@@ -52,7 +52,7 @@ public class VueMembre {
 		btnCompte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vueMembre.dispose();
-				//VueCompte
+				VueCompteMembre.init(membre);
 			}
 		});
 		/***
@@ -79,13 +79,13 @@ public class VueMembre {
 		
 		lblBienvenue = new JLabel();
 		lblBienvenue.setForeground(Color.BLUE);
-		lblBienvenue.setBounds(170, 11, 102, 26);
+		lblBienvenue.setBounds(180, 11, 135, 26);
 		lblBienvenue.setText("Bienvenue " + membre.getPrenom());
 		vueMembre.getContentPane().add(lblBienvenue);
 		
 		JLabel lblTitre = new JLabel("Que voulez-vous faire?");
 		lblTitre.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblTitre.setBounds(123, 32, 192, 54);
+		lblTitre.setBounds(141, 30, 192, 54);
 		vueMembre.getContentPane().add(lblTitre);
 		
 		JButton btnSeeBalade = new JButton("Voir");

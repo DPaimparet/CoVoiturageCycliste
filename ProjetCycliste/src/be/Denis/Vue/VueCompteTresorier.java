@@ -22,11 +22,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
 
-import be.Denis.Model.Membre;
+import be.Denis.Model.Tresorier;
 @SuppressWarnings("deprecation")
-public class VueCompteMembre {
+public class VueCompteTresorier {
 
-	private JFrame vueCompteMembre;
+	private JFrame vueCompteTresorier;
 	private JTextField textNom;
 	private JTextField textPrenom;
 	private JTextField textDateJour;
@@ -43,19 +43,18 @@ public class VueCompteMembre {
 	private JButton btnAnnuler;
 	private JRadioButton rdbtnSexeM;
 	private JRadioButton rdbtnSexeF;
-	private JComboBox<String> comboBoxCategorie;
 	private JLabel lblError;
-	private Membre membre = null;
+	private Tresorier tresorier = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void init(Membre m) {
+	public static void init(Tresorier t) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VueCompteMembre window = new VueCompteMembre(m);
-					window.vueCompteMembre.setVisible(true);
+					VueCompteTresorier window = new VueCompteTresorier(t);
+					window.vueCompteTresorier.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,9 +65,9 @@ public class VueCompteMembre {
 	/**
 	 * Create the application.
 	 */
-	public VueCompteMembre(Membre m) {
-		this.membre = m;
-		initialize(m);
+	public VueCompteTresorier(Tresorier t) {
+		this.tresorier = t;
+		initialize(t);
 		eventHandler();
 	}
 	
@@ -89,7 +88,7 @@ public class VueCompteMembre {
 				int annee = Integer.parseInt(textDateAnnee.getText());
 				Date date = new Date (annee-1900,mois-1,jour);
 				String sexe;
-				String categorie = (String) comboBoxCategorie.getSelectedItem();
+				
 				String adresse = textAdresse.getText();
 				int rue = Integer.parseInt(textNumRue.getText());
 				int codePostal = Integer.parseInt(textCodePostal.getText());
@@ -97,7 +96,8 @@ public class VueCompteMembre {
 				long numTel = Long.parseLong(textTel.getText());
 				String mail = textMail.getText();
 				String password = textPassword.getText();
-	
+				
+				
 				
 				if(rdbtnSexeM.isSelected()) {
 					sexe="H";
@@ -108,22 +108,22 @@ public class VueCompteMembre {
 				
 				if(!textNom.getText().equals("") && !textPrenom.getText().equals("") && !textDateJour.getText().equals("") && !textDateMois.getText().equals("") && !textDateAnnee.getText().equals("") && !textAdresse.getText().equals("") && !textNumRue.getText().equals("") && !textCodePostal.getText().equals("") && !textVille.getText().equals("") && !textTel.getText().equals("") && !textMail.getText().equals("") && !textPassword.getText().equals("")){
 					
-					membre.setNom(nom);
-					membre.setPrenom(prenom);
-					membre.setDate(date);
-					membre.setSexe(sexe);
-					membre.setCategorie(categorie);
-					membre.setAdresse(adresse);
-					membre.setNumeroMaison(rue);
-					membre.setVille(ville);
-					membre.setCodePostal(codePostal);
-					membre.setNumTel(numTel);
-					membre.seteMail(mail);
-					membre.setPassword(password);
+					tresorier.setNom(nom);
+					tresorier.setPrenom(prenom);
+					tresorier.setDate(date);
+					tresorier.setSexe(sexe);
+					tresorier.setCategorie("");
+					tresorier.setAdresse(adresse);
+					tresorier.setNumeroMaison(rue);
+					tresorier.setVille(ville);
+					tresorier.setCodePostal(codePostal);
+					tresorier.setNumTel(numTel);
+					tresorier.seteMail(mail);
+					tresorier.setPassword(password);
 					
-					membre.updateCompte();
-					vueCompteMembre.dispose();
-					VueMembre.init(membre);
+					tresorier.updateCompte();
+					vueCompteTresorier.dispose();
+					VueTresorier.init(tresorier);
 				}
 				else
 					lblError.setText("Tous les champs ne sont pas remplis");
@@ -134,8 +134,8 @@ public class VueCompteMembre {
 		 */
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vueCompteMembre.dispose();
-				VueAccueil.init();
+				vueCompteTresorier.dispose();
+				VueTresorier.init(tresorier);
 			}
 		});
 		
@@ -154,11 +154,11 @@ public class VueCompteMembre {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Membre m) {
+	private void initialize(Tresorier m) {
 		
-		vueCompteMembre = new JFrame();
-		vueCompteMembre.setBounds(100, 100, 694, 447);
-		vueCompteMembre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vueCompteTresorier = new JFrame();
+		vueCompteTresorier.setBounds(100, 100, 694, 447);
+		vueCompteTresorier.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblTitre = new JLabel("Inscription");
 		lblTitre.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -251,16 +251,11 @@ public class VueCompteMembre {
 		btnInscription = new JButton("Mettre \u00E0 jour");
 		btnAnnuler = new JButton("Annuler");
 		
-		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
-		
-		comboBoxCategorie = new JComboBox<String>();
-		comboBoxCategorie.setModel(new DefaultComboBoxModel(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialiste", "Cyclo sur route"}));
-		
 		lblError = new JLabel("");
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		GroupLayout groupLayout = new GroupLayout(vueCompteMembre.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(vueCompteTresorier.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -273,11 +268,6 @@ public class VueCompteMembre {
 							.addComponent(lblNewLabel_7)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblCategorie)
-							.addGap(18)
-							.addComponent(comboBoxCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
 							.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 663, GroupLayout.PREFERRED_SIZE))
@@ -420,13 +410,7 @@ public class VueCompteMembre {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_7)
 						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(3)
-							.addComponent(lblCategorie))
-						.addComponent(comboBoxCategorie, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
+					.addGap(56)
 					.addComponent(lblError, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
 					.addGap(5)
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -445,7 +429,8 @@ public class VueCompteMembre {
 		rdbtnSexeM.setSelected(true);
 		rdbtnSexeF = new JRadioButton("F");
 		panel.add(rdbtnSexeF);
-		vueCompteMembre.getContentPane().setLayout(groupLayout);
+		vueCompteTresorier.getContentPane().setLayout(groupLayout);
 	}
 
 }
+

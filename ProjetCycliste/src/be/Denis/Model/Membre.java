@@ -1,24 +1,20 @@
 package be.Denis.Model;
 
 import java.sql.Date;
-import java.sql.SQLException;
-
-import be.Denis.DAO.AbstractDAOFactory;
-import be.Denis.DAO.DAO;
-
-import be.Denis.Vue.VueMembre;
 
 public class Membre extends Personne {
 	
 	
-	public Membre(String nom, String prenom, Date dateNaiss, String sexe, String categorie,String adresse, int numeroMaison, int codePostal, String ville, long numTel, String eMail, String login, String password, String fonction){
-		super(nom,prenom,dateNaiss, sexe,categorie,adresse,numeroMaison,codePostal,ville,numTel,eMail,login,password,fonction);
+	public Membre(int numMembre, String nom, String prenom, Date dateNaiss, String sexe, String categorie,String adresse, int numeroMaison, int codePostal, String ville, long numTel, String eMail, String login, String password, String fonction){
+		super(numMembre, nom, prenom,dateNaiss, sexe,categorie,adresse,numeroMaison,codePostal,ville,numTel,eMail,login,password,fonction);
 	}
 	
 
 	/***
 	 *  Méthode de la classe Membre
 	 */
-	
+	public void updateCompte() {
+		super.updateCompte();
+	}
 	
 }

@@ -22,11 +22,11 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.MatteBorder;
 
-import be.Denis.Model.Membre;
+import be.Denis.Model.Responsable;
 @SuppressWarnings("deprecation")
-public class VueCompteMembre {
+public class VueCompteResponsable {
 
-	private JFrame vueCompteMembre;
+	private JFrame vueCompteResponsable;
 	private JTextField textNom;
 	private JTextField textPrenom;
 	private JTextField textDateJour;
@@ -45,17 +45,17 @@ public class VueCompteMembre {
 	private JRadioButton rdbtnSexeF;
 	private JComboBox<String> comboBoxCategorie;
 	private JLabel lblError;
-	private Membre membre = null;
+	private Responsable responsable = null;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void init(Membre m) {
+	public static void init(Responsable r) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VueCompteMembre window = new VueCompteMembre(m);
-					window.vueCompteMembre.setVisible(true);
+					VueCompteResponsable window = new VueCompteResponsable(r);
+					window.vueCompteResponsable.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -66,9 +66,9 @@ public class VueCompteMembre {
 	/**
 	 * Create the application.
 	 */
-	public VueCompteMembre(Membre m) {
-		this.membre = m;
-		initialize(m);
+	public VueCompteResponsable(Responsable r) {
+		this.responsable = r;
+		initialize(r);
 		eventHandler();
 	}
 	
@@ -97,7 +97,8 @@ public class VueCompteMembre {
 				long numTel = Long.parseLong(textTel.getText());
 				String mail = textMail.getText();
 				String password = textPassword.getText();
-	
+				
+				
 				
 				if(rdbtnSexeM.isSelected()) {
 					sexe="H";
@@ -108,22 +109,22 @@ public class VueCompteMembre {
 				
 				if(!textNom.getText().equals("") && !textPrenom.getText().equals("") && !textDateJour.getText().equals("") && !textDateMois.getText().equals("") && !textDateAnnee.getText().equals("") && !textAdresse.getText().equals("") && !textNumRue.getText().equals("") && !textCodePostal.getText().equals("") && !textVille.getText().equals("") && !textTel.getText().equals("") && !textMail.getText().equals("") && !textPassword.getText().equals("")){
 					
-					membre.setNom(nom);
-					membre.setPrenom(prenom);
-					membre.setDate(date);
-					membre.setSexe(sexe);
-					membre.setCategorie(categorie);
-					membre.setAdresse(adresse);
-					membre.setNumeroMaison(rue);
-					membre.setVille(ville);
-					membre.setCodePostal(codePostal);
-					membre.setNumTel(numTel);
-					membre.seteMail(mail);
-					membre.setPassword(password);
+					responsable.setNom(nom);
+					responsable.setPrenom(prenom);
+					responsable.setDate(date);
+					responsable.setSexe(sexe);
+					responsable.setCategorie(categorie);
+					responsable.setAdresse(adresse);
+					responsable.setNumeroMaison(rue);
+					responsable.setVille(ville);
+					responsable.setCodePostal(codePostal);
+					responsable.setNumTel(numTel);
+					responsable.seteMail(mail);
+					responsable.setPassword(password);
 					
-					membre.updateCompte();
-					vueCompteMembre.dispose();
-					VueMembre.init(membre);
+					responsable.updateCompte();
+					vueCompteResponsable.dispose();
+					VueResponsable.init(responsable);
 				}
 				else
 					lblError.setText("Tous les champs ne sont pas remplis");
@@ -134,8 +135,8 @@ public class VueCompteMembre {
 		 */
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				vueCompteMembre.dispose();
-				VueAccueil.init();
+				vueCompteResponsable.dispose();
+				VueResponsable.init(responsable);
 			}
 		});
 		
@@ -154,11 +155,11 @@ public class VueCompteMembre {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Membre m) {
+	private void initialize(Responsable m) {
 		
-		vueCompteMembre = new JFrame();
-		vueCompteMembre.setBounds(100, 100, 694, 447);
-		vueCompteMembre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vueCompteResponsable = new JFrame();
+		vueCompteResponsable.setBounds(100, 100, 694, 447);
+		vueCompteResponsable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblTitre = new JLabel("Inscription");
 		lblTitre.setFont(new Font("Tahoma", Font.BOLD, 16));
@@ -260,7 +261,7 @@ public class VueCompteMembre {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
-		GroupLayout groupLayout = new GroupLayout(vueCompteMembre.getContentPane());
+		GroupLayout groupLayout = new GroupLayout(vueCompteResponsable.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
@@ -445,7 +446,7 @@ public class VueCompteMembre {
 		rdbtnSexeM.setSelected(true);
 		rdbtnSexeF = new JRadioButton("F");
 		panel.add(rdbtnSexeF);
-		vueCompteMembre.getContentPane().setLayout(groupLayout);
+		vueCompteResponsable.getContentPane().setLayout(groupLayout);
 	}
 
 }
