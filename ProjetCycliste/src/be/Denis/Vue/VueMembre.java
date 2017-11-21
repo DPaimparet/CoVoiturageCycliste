@@ -3,18 +3,21 @@ package be.Denis.Vue;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import be.Denis.Model.Membre;
-import be.Denis.Model.Personne;
 
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VueMembre {
 
 	private JFrame vueMembre;
 	private JLabel lblBienvenue;
+	private Membre membre = null;
+	private JButton btnDeconnexion;
 
 	/**
 	 * Launch the application.
@@ -23,7 +26,7 @@ public class VueMembre {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VueMembre window = new VueMembre();
+					VueMembre window = new VueMembre(m);
 					window.vueMembre.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,9 +38,21 @@ public class VueMembre {
 	/**
 	 * Create the application.
 	 */
-	public VueMembre() {
+	public VueMembre(Membre m) {
+		this.membre=m;
 		initialize();
+		eventHandler();
 	}
+	
+	private void eventHandler() {
+		btnDeconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vueMembre.dispose();
+				VueAccueil.init();
+			}
+		});
+	}
+	
 
 	/**
 	 * Initialize the contents of the frame.
@@ -45,14 +60,14 @@ public class VueMembre {
 	private void initialize() {
 		vueMembre = new JFrame();
 		vueMembre.setBackground(Color.CYAN);
-		vueMembre.setBounds(100, 100, 450, 300);
+		vueMembre.setBounds(100, 100, 500, 300);
 		vueMembre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vueMembre.getContentPane().setLayout(null);
 		
 		lblBienvenue = new JLabel();
 		lblBienvenue.setForeground(Color.BLUE);
 		lblBienvenue.setBounds(170, 11, 102, 26);
-		lblBienvenue.setText("Bienvenue ");
+		lblBienvenue.setText("Bienvenue " + membre.getPrenom());
 		vueMembre.getContentPane().add(lblBienvenue);
 		
 		JLabel lblTitre = new JLabel("Que voulez-vous faire?");
@@ -61,15 +76,15 @@ public class VueMembre {
 		vueMembre.getContentPane().add(lblTitre);
 		
 		JButton btnSeeBalade = new JButton("Voir");
-		btnSeeBalade.setBounds(295, 95, 89, 23);
+		btnSeeBalade.setBounds(295, 95, 113, 23);
 		vueMembre.getContentPane().add(btnSeeBalade);
 		
 		JButton btnNextBalade = new JButton("Voir");
-		btnNextBalade.setBounds(295, 129, 89, 23);
+		btnNextBalade.setBounds(295, 129, 113, 23);
 		vueMembre.getContentPane().add(btnNextBalade);
 		
 		JButton btnCompte = new JButton("Param\u00E8tre");
-		btnCompte.setBounds(295, 160, 89, 23);
+		btnCompte.setBounds(295, 160, 113, 23);
 		vueMembre.getContentPane().add(btnCompte);
 		
 		JLabel lblBalade = new JLabel("Voir les prochaines balades");
@@ -78,7 +93,7 @@ public class VueMembre {
 		vueMembre.getContentPane().add(lblBalade);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(10, 84, 414, 2);
+		separator.setBounds(10, 84, 464, 2);
 		vueMembre.getContentPane().add(separator);
 		
 		JLabel lblInscrit = new JLabel("Mes prochaines balades");
@@ -92,10 +107,10 @@ public class VueMembre {
 		vueMembre.getContentPane().add(lblCompte);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 205, 424, 2);
+		separator_1.setBounds(10, 205, 464, 2);
 		vueMembre.getContentPane().add(separator_1);
 		
-		JButton btnDeconnexion = new JButton("D\u00E9connexion");
+		btnDeconnexion = new JButton("D\u00E9connexion");
 		btnDeconnexion.setBackground(Color.RED);
 		btnDeconnexion.setForeground(Color.WHITE);
 		btnDeconnexion.setFont(new Font("Tahoma", Font.BOLD, 14));

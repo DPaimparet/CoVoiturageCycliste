@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import be.Denis.Vue.VueAccueil;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class VueInscription {
 
@@ -69,7 +71,7 @@ public class VueInscription {
 		 */
 		btnInscription.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//new Personne(textNom.getText(),textPrenom.getText(),)
 			}
 		});
 		/***
@@ -85,9 +87,10 @@ public class VueInscription {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		vueInscription = new JFrame();
-		vueInscription.setBounds(100, 100, 579, 300);
+		vueInscription.setBounds(100, 100, 694, 447);
 		vueInscription.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JLabel lblTitre = new JLabel("Inscription");
@@ -171,6 +174,16 @@ public class VueInscription {
 		btnInscription = new JButton("Enregistrer");
 		btnAnnuler = new JButton("Annuler");
 		
+		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
+		
+		JComboBox comboBoxFonction = new JComboBox();
+		comboBoxFonction.setModel(new DefaultComboBoxModel(new String[] {"Membre", "Responsable", "Tresorier"}));
+		
+		JLabel lblFonction = new JLabel("Fonction dans le club");
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialoste", "Cyclo sur route"}));
+		
 		GroupLayout groupLayout = new GroupLayout(vueInscription.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -192,7 +205,7 @@ public class VueInscription {
 									.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE)
 									.addGap(1)
 									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 101, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
 									.addComponent(lblSexe)
 									.addGap(32)
 									.addComponent(rdbtnNewRadioButton)
@@ -222,29 +235,29 @@ public class VueInscription {
 									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addComponent(lblNewLabel_3)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textVille, GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+									.addComponent(textVille, GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
 									.addPreferredGap(ComponentPlacement.RELATED))
-								.addComponent(textAdresse, GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))))
+								.addComponent(textAdresse, GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE))))
 					.addGap(10))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNumeroMaison)
-					.addContainerGap(399, Short.MAX_VALUE))
+					.addContainerGap(631, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblNewLabel_4)
 						.addComponent(lblNewLabel_6))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(textLogin)
-						.addComponent(textTel, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(textTel, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textLogin, 159, 159, 159))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel_5)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(textMail, GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE))
+							.addComponent(textMail, GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblNewLabel_7)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -252,22 +265,32 @@ public class VueInscription {
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+					.addComponent(separator, GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(240, Short.MAX_VALUE)
-					.addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
-					.addGap(227))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(238)
+					.addComponent(btnInscription)
+					.addGap(72)
+					.addComponent(btnAnnuler, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(199, Short.MAX_VALUE))
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+					.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 658, Short.MAX_VALUE)
 					.addContainerGap())
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(150)
-					.addComponent(btnInscription)
-					.addGap(60)
-					.addComponent(btnAnnuler, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(184, Short.MAX_VALUE))
+					.addContainerGap(306, Short.MAX_VALUE)
+					.addComponent(lblTitre, GroupLayout.PREFERRED_SIZE, 96, GroupLayout.PREFERRED_SIZE)
+					.addGap(276))
+				.addGroup(groupLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblCategorie)
+					.addGap(18)
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+					.addComponent(lblFonction)
+					.addGap(58)
+					.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+					.addGap(116))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -325,16 +348,22 @@ public class VueInscription {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_6)
-						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNewLabel_7)
-						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textLogin, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblCategorie)
+						.addComponent(comboBoxFonction, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblFonction)
+						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(68)
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
-					.addGap(7)
+					.addGap(26)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnInscription)
 						.addComponent(btnAnnuler))
-					.addContainerGap())
+					.addGap(50))
 		);
 		vueInscription.getContentPane().setLayout(groupLayout);
 	}

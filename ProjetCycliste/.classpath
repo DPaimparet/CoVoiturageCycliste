@@ -4,5 +4,15 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="jgoodies-common-1.8.0.jar" sourcepath="jgoodies-common-1.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="jgoodies-forms-1.8.0.jar" sourcepath="jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/UCanAccess-4.0.2-bin/ucanaccess-4.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/commons-lang-2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/hsqldb.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/jackcess-2.1.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/jgoodies-common-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/jgoodies-common-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/jgoodies-forms-1.8.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/jgoodies-forms-1.8.0-sources.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Paimp/Documents/Condorcet 3ième/PGMAV/Projet_Cycliste/CoVoiturageCycliste/ProjetCycliste/ucanaccess-4.0.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

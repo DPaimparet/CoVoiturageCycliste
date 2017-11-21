@@ -4,7 +4,8 @@ import java.sql.SQLException;
 import java.util.Date;
 import be.Denis.DAO.AbstractDAOFactory;
 import be.Denis.DAO.DAO;
-import be.Denis.Vue.VueMembre;;
+import be.Denis.Vue.VueMembre;
+import be.Denis.Vue.VueResponsable;;
 
 public class Personne {
 	private int numPersonne;
@@ -24,14 +25,6 @@ public class Personne {
 	private String password;
 	private String fonction;
 	
-	public Personne(int numPersonne, String nom, String prenom, Date date, String sexe){
-		this.numPersonne = numPersonne;
-		this.nom= nom;
-		this.prenom=prenom;
-		this.dateNaiss=date;
-		this.sexe=sexe;		
-	}
-	
 	public Personne(String nom, String prenom, Date dateNaiss, String sexe, String categorie, String adresse,int numeroMaison, int codePostal, String ville, int numTel, String eMail, String login, String password, String fonction){
 		this.nom = nom;
 		this.prenom = prenom;
@@ -46,14 +39,13 @@ public class Personne {
 		this.eMail = eMail;
 		this.login = login;
 		this.password = password;
-		this.setFonction(fonction);
+		this.fonction = fonction;
 	}
 	
-	public Personne(String nom, String prenom){
-		this.nom= nom;
-		this.prenom=prenom;	
+	public Personne(String login, String password){
+		this.login= login;
+		this.password=password;	
 	}
-	
 	public Personne(){
 		
 	}
@@ -208,12 +200,13 @@ public class Personne {
 		if(p!=null)
 		{
 			// si membre categorie = responsable appel vue responsable
-			if(p.categorie == "responsable") {
-				//Responsable r = new Responsable(p.nom,p.prenom,p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+			if(p.fonction.equals("Responsable")) {
+				Responsable r = new Responsable(p.nom,p.prenom,p.dateNaiss,p.sexe,p.categorie,p.adresse,p.numeroMaison,p.codePostal,p.ville,p.numTel,p.eMail,p.login,p.password,p.fonction);
+				VueResponsable.init(r);
 				return true;
 			}
 			// sinon si categorie = tresorier appel vue tresorier
-			else if(p.categorie == "tresorier") {
+			else if(p.fonction.equals("tresorier")) {
 				return true;
 			}
 			// sinon appel vue membre

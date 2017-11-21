@@ -12,7 +12,6 @@ public class AccesDB {
             Class.forName("net.ucanaccess.jdbc.UcanaccessDriver");
             
             String url = "jdbc:ucanaccess://./clubCycliste.accdb";
-
             snglConnection = DriverManager.getConnection(url);
         } catch (ClassNotFoundException e) {
             System.out.println(e);

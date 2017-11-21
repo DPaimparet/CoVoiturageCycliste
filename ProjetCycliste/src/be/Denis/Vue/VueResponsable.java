@@ -15,6 +15,8 @@ public class VueResponsable {
 
 	private JFrame VueResponsable;
 	private JButton btnQuitter;
+	private JButton btnCreerBalade;
+	private Responsable responsable = null;
 
 	/**
 	 * Launch the application.
@@ -23,7 +25,7 @@ public class VueResponsable {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					VueResponsable window = new VueResponsable();
+					VueResponsable window = new VueResponsable(r);
 					window.VueResponsable.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -35,7 +37,8 @@ public class VueResponsable {
 	/**
 	 * Create the application.
 	 */
-	public VueResponsable() {
+	public VueResponsable(Responsable r) {
+		this.responsable = r;
 		initialize();
 		eventHandler();
 	}
@@ -44,7 +47,15 @@ public class VueResponsable {
 	 * Events sur les boutons
 	 */
 	private void eventHandler() {
-		
+		/***
+		 * Vers la vue de création d'une balade
+		 */
+		btnCreerBalade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VueResponsable.dispose();
+				VueCreationBalade.init();
+			}
+		});
 		/***
 		 * Quitter l'interface responsable vers l'interface d'accueil
 		 */
@@ -66,7 +77,7 @@ public class VueResponsable {
 		VueResponsable.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		VueResponsable.getContentPane().setLayout(null);
 		
-		JLabel lblTitreRespo = new JLabel("Bienvenue");
+		JLabel lblTitreRespo = new JLabel("Bienvenue" + responsable.getPrenom());
 		lblTitreRespo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitreRespo.setBounds(175, 11, 92, 20);
 		VueResponsable.getContentPane().add(lblTitreRespo);
@@ -79,7 +90,7 @@ public class VueResponsable {
 		lblNewLabel.setBounds(85, 75, 98, 14);
 		VueResponsable.getContentPane().add(lblNewLabel);
 		
-		JButton btnCreerBalade = new JButton("Cr\u00E9er");
+		btnCreerBalade = new JButton("Cr\u00E9er");
 		btnCreerBalade.setBounds(254, 71, 89, 23);
 		VueResponsable.getContentPane().add(btnCreerBalade);
 		

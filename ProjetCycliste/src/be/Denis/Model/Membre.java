@@ -15,9 +15,6 @@ public class Membre extends Personne {
 		super(nom,prenom,dateNaiss, sexe,categorie,adresse,numeroMaison,codePostal,ville,numTel,eMail,login,password,fonction);
 	}
 	
-	public Membre(String login, String password){
-		super(login,password);
-	}
 
 	/***
 	 *  Méthode de la classe Membre
