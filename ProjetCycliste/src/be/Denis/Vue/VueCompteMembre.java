@@ -135,7 +135,7 @@ public class VueCompteMembre {
 		btnAnnuler.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				vueCompteMembre.dispose();
-				VueAccueil.init();
+				VueMembre.init(membre);
 			}
 		});
 		

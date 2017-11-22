@@ -37,5 +37,9 @@ public abstract class DAO<T> {
 	public LinkedList<Membre> GetListMon() {
 		return null;
 	}
+	
+	public LinkedList<Balade> findAllBalade(String categorie){
+		return null;
+	}
 
 }

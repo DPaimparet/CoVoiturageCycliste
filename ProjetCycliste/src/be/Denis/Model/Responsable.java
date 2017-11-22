@@ -20,6 +20,7 @@ public class Responsable extends Personne {
 		balade = new Balade(categorieB, dateB, titreB, descriptionB, prixTrajet);
 		balade.creeBalade(getNumPersonne());
 	}
+	
 	public LinkedList<Balade> voirMesBalades() {
 		balade = new Balade();
 		return balade.allBalade(getNumPersonne());

@@ -91,6 +91,23 @@ public class BaladeDAO extends DAO<Balade> {
 		}
 		return listBalade;
 	}
+	
+	public LinkedList<Balade> findAllBalade(String categorie) {
+		LinkedList<Balade> listBalade = new LinkedList<Balade>();
+		try {
+			String balade = "SELECT * FROM Balade WHERE categorieBalade = ?" ;
+			PreparedStatement prepare = connect.prepareStatement(balade);
+			prepare.setString (1, categorie);
+			ResultSet resultat = prepare.executeQuery();
+			while(resultat.next())
+				listBalade.add(new Balade(resultat.getString("idBalade"),resultat.getDate("dateBalade"),resultat.getString("titre"),resultat.getString("description"), resultat.getInt("prixTrajet")));
+		}
+		catch(SQLException e){
+			System.out.println(e);
+			System.out.println("Erreur de connection base de données");
+		}
+		return listBalade;
+	}
 
 	
 }

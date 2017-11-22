@@ -19,6 +19,7 @@ public class VueMembre {
 	private Membre membre = null;
 	private JButton btnDeconnexion;
 	private JButton btnCompte;
+	private JButton btnSeeBalade;
 
 	/**
 	 * Launch the application.
@@ -64,6 +65,16 @@ public class VueMembre {
 				VueAccueil.init();
 			}
 		});
+		
+		/***
+		 * Diriger vers la page des balades de sa catégorie
+		 */
+		btnSeeBalade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				vueMembre.dispose();
+				VueBaladeDisponible.init(membre);
+			}
+		});
 	}
 	
 
@@ -88,7 +99,7 @@ public class VueMembre {
 		lblTitre.setBounds(141, 30, 192, 54);
 		vueMembre.getContentPane().add(lblTitre);
 		
-		JButton btnSeeBalade = new JButton("Voir");
+		btnSeeBalade = new JButton("Voir");
 		btnSeeBalade.setBounds(295, 95, 113, 23);
 		vueMembre.getContentPane().add(btnSeeBalade);
 		

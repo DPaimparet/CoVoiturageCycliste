@@ -5,6 +5,7 @@ import java.sql.Connection;
 import be.Denis.Model.Balade;
 import be.Denis.Model.Membre;
 import be.Denis.Model.Personne;
+import be.Denis.Model.Reservation;
 import be.Denis.Model.Responsable;
 
 public class DAOFactory extends AbstractDAOFactory{
@@ -24,5 +25,10 @@ public class DAOFactory extends AbstractDAOFactory{
 	
 	public DAO<Balade> getBaladeDAO() {
 		return new BaladeDAO(conn);
+	}
+
+	public DAO<Reservation> getReservationDAO() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

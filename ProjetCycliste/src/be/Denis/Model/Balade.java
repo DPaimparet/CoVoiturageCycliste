@@ -107,6 +107,12 @@ public class Balade {
 		DAO<Balade> BaladeDAO = adf.getBaladeDAO();
 		return BaladeDAO.findAll(numPersonne);
 	}
+	
+	public LinkedList<Balade> allBalade(String categorie) {
+		AbstractDAOFactory adf = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+		DAO<Balade> BaladeDAO = adf.getBaladeDAO();
+		return BaladeDAO.findAllBalade(categorie);
+	}
 
 	
 }

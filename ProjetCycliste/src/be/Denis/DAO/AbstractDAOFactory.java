@@ -11,6 +11,7 @@ public abstract class AbstractDAOFactory {
 	public abstract DAO<Personne> getPersonneDAO();
 	public abstract DAO<Responsable> getResponsableDAO();
 	public abstract DAO<Balade> getBaladeDAO();
+	public abstract DAO<Reservation> getReservationDAO();
 	
 	public static AbstractDAOFactory getFactory(int type){
 		switch(type){
