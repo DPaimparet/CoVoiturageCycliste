@@ -14,6 +14,7 @@ import be.Denis.Model.Balade;
 import be.Denis.Model.Membre;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.table.DefaultTableModel;
 
 public class VueBaladeDisponible {
 
@@ -21,6 +22,7 @@ public class VueBaladeDisponible {
 	private Membre membre = null;
 	private JButton btnNewButton;
 	private JTable table;
+	private JButton btnReserver;
 
 	/**
 	 * Launch the application.
@@ -85,14 +87,23 @@ public class VueBaladeDisponible {
 			count++;
 		}
 		
-		String titre[] = new String[] {"Balade", "Date", "Description", "Prix du Trajet" };
-		table = new JTable(tabBalade, titre);
-		table.setBounds(36, 46, 356, 118);
-		vueBaladeDisponible.getContentPane().add(scrollPane.add(table));
-		
 		btnNewButton = new JButton("Retour");
-		btnNewButton.setBounds(153, 194, 146, 36);
+		btnNewButton.setBounds(285, 194, 116, 36);
 		vueBaladeDisponible.getContentPane().add(btnNewButton);
+		
+		btnReserver = new JButton("Reserver");
+		btnReserver.setBounds(73, 197, 110, 30);
+		vueBaladeDisponible.getContentPane().add(btnReserver);
+		
+		table = new JTable();
+		table.setModel(new DefaultTableModel(
+			tabBalade,
+			new String[] {
+				"Titre", "Date", "Description", "Prix du Trajet"
+			}
+		));
+		table.setBounds(31, 36, 370, 131);
+		vueBaladeDisponible.getContentPane().add(table);
 	}
 
 }
