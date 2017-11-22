@@ -29,14 +29,15 @@ public class ResponsableDAO extends DAO<Responsable>{
 		return false;
 	}
 
+
 	@Override
-	public LinkedList<Responsable> findAll() {
+	public Responsable find(int id) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Responsable find(int id) throws ClassNotFoundException, SQLException {
+	public LinkedList<Responsable> findAll(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

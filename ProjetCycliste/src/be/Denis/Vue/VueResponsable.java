@@ -17,6 +17,7 @@ public class VueResponsable {
 	private JButton btnQuitter;
 	private JButton btnCreerBalade;
 	private JButton btnParametre;
+	private JButton btnGererBalade;
 	private Responsable responsable = null;
 
 	/**
@@ -54,7 +55,7 @@ public class VueResponsable {
 		btnCreerBalade.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VueResponsable.dispose();
-				VueCreationBalade.init();
+				VueCreationBalade.init(responsable);
 			}
 		});
 		/***
@@ -68,7 +69,17 @@ public class VueResponsable {
 		});
 		
 		/***
-		 * 
+		 *  Accès à l'interface des balade créé par le responsable
+		 */
+		btnGererBalade.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VueResponsable.dispose();
+				VueBaladeResponsable.init(responsable);
+			}
+		});
+		
+		/***
+		 *  Accès à la page du compte du responsable
 		 */
 		btnParametre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -109,7 +120,7 @@ public class VueResponsable {
 		lblNewLabel_1.setBounds(85, 126, 114, 14);
 		VueResponsable.getContentPane().add(lblNewLabel_1);
 		
-		JButton btnGererBalade = new JButton("G\u00E9rer");
+		btnGererBalade = new JButton("G\u00E9rer");
 		btnGererBalade.setBounds(254, 122, 109, 23);
 		VueResponsable.getContentPane().add(btnGererBalade);
 		

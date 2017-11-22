@@ -17,7 +17,7 @@ public class VueTresorier {
 	private JButton btnQuitter;
 	private JButton btnVoirCompte;
 	private JButton btnParametre;
-	private Tresorier Tresorier = null;
+	private Tresorier tresorier = null;
 
 	/**
 	 * Launch the application.
@@ -39,7 +39,7 @@ public class VueTresorier {
 	 * Create the application.
 	 */
 	public VueTresorier(Tresorier r) {
-		this.Tresorier = r;
+		this.tresorier = r;
 		initialize();
 		eventHandler();
 	}
@@ -53,8 +53,7 @@ public class VueTresorier {
 		 */
 		btnVoirCompte.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VueTresorier.dispose();
-				VueCreationBalade.init();
+				// A faire
 			}
 		});
 		/***
@@ -73,7 +72,7 @@ public class VueTresorier {
 		btnParametre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VueTresorier.dispose();
-				VueCompteTresorier.init(Tresorier);
+				VueCompteTresorier.init(tresorier);
 			}
 		});
 	}
@@ -88,7 +87,7 @@ public class VueTresorier {
 		VueTresorier.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		VueTresorier.getContentPane().setLayout(null);
 		
-		JLabel lblTitreRespo = new JLabel("Bienvenue " + Tresorier.getPrenom());
+		JLabel lblTitreRespo = new JLabel("Bienvenue " + tresorier.getPrenom());
 		lblTitreRespo.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblTitreRespo.setBounds(161, 11, 199, 20);
 		VueTresorier.getContentPane().add(lblTitreRespo);

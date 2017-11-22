@@ -1,7 +1,6 @@
 package be.Denis.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -120,14 +119,15 @@ public class PersonneDAO extends DAO<Personne>{
 		return true;
 	}
 
+
 	@Override
-	public LinkedList<Personne> findAll() {
+	public Personne find(int id) throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Personne find(int id) throws ClassNotFoundException, SQLException {
+	public LinkedList<Personne> findAll(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

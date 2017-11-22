@@ -1,14 +1,11 @@
 package be.Denis.DAO;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
 import be.Denis.Model.Membre;
-import be.Denis.Model.Personne;
 
 public class MembreDAO extends DAO<Membre>{
 	
@@ -18,12 +15,6 @@ public class MembreDAO extends DAO<Membre>{
 
 	@Override
 	public Membre find(int id) throws ClassNotFoundException, SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public LinkedList<Membre> findAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -70,6 +61,12 @@ public class MembreDAO extends DAO<Membre>{
 				return false;
 			} 
 			return true;
+	}
+
+	@Override
+	public LinkedList<Membre> findAll(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

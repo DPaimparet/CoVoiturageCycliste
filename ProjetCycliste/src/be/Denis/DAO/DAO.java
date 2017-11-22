@@ -18,7 +18,7 @@ public abstract class DAO<T> {
 	
 	public abstract boolean update(T obj);
 	
-	public abstract LinkedList<T> findAll();
+	public abstract LinkedList<T> findAll(int id);
 
 	public abstract T find(int id) throws ClassNotFoundException, SQLException;
 	
@@ -27,6 +27,10 @@ public abstract class DAO<T> {
 	}
 	
 	public boolean compteExist(String login) {
+		return false;
+	}
+	
+	public boolean create(Balade obj, int numResponsable) {
 		return false;
 	}
 	

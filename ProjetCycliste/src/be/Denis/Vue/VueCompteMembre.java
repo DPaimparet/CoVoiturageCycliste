@@ -254,7 +254,7 @@ public class VueCompteMembre {
 		JLabel lblCategorie = new JLabel("Cat\u00E9gorie");
 		
 		comboBoxCategorie = new JComboBox<String>();
-		comboBoxCategorie.setModel(new DefaultComboBoxModel(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialiste", "Cyclo sur route"}));
+		comboBoxCategorie.setModel(new DefaultComboBoxModel<String>(new String[] {"VTT - Descende", "VTT - Randonneur", "VTT - Trialiste", "Cyclo sur route"}));
 		
 		lblError = new JLabel("");
 		
